@@ -1,0 +1,126 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+
+  <meta charset="UTF-8">
+  
+<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+<link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+
+  <title>CodePen - 2077-1</title>
+  
+  
+  
+  
+<style>
+#myCanvas {
+  background:rgba(200,200,200,.8);
+  border-style:groove;
+  border-width:thick;
+}
+body {
+  text-align:center;
+}
+#timeZone {
+  font-size:150%;
+}
+</style>
+
+  
+  
+  
+  
+
+</head>
+
+<body translate="no" >
+  <canvas id="myCanvas" width="600" height="400">
+  Your browser does not support canvas!
+</canvas>
+<div id="timeZone"><button onclick="dec()">-</button><span>Time Zone Offset</span><button onclick="inc()">+</button>
+  <div><span id="offset">0</span></div>
+  <div><button onclick="reset()">Reset Offset</button></div>
+  
+  
+      <script id="rendered-js" >
+console.clear();
+console.log("hello world");
+let os = document.getElementById("offset");
+let timeZoneOffset = 0;
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+console.log(ctx);
+function drawTime() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let d = new Date();
+  let sec = d.getSeconds();
+  let min = d.getMinutes();
+  let hourCurrent = d.getHours();
+  let hour = hourCurrent + timeZoneOffset;
+  if (hour >=13) {
+    var hr = hour-12
+    var AM = false
+  } else {
+    var hr = hour
+    var AM = true
+  }
+  ctx.font = "30px Times";
+  ctx.textAlign = "left";
+  ctx.fillText(sec, 455, 380);
+  ctx.fillText(min, 275, 380);
+  ctx.fillText(hr, 80, 380);
+  ctx.fillText("Seconds", 425, 45);
+   ctx.fillText("Minutes", 240, 45);
+   ctx.fillText("Hours", 70, 45);
+  ctx.fillText(min, 275, 380);
+  ctx.fillText(hr, 80, 380);
+  if (AM==true) {
+  ctx.fillStyle = "rgba(255,0,0,.8)";
+  } else {
+    ctx.fillStyle = "rgba(0,0,255,.8)";
+  };
+  //ctx.fillRect(95, 50, 40, 300);
+  let adjustHeight = 300 * (sec / 60);
+  let adjustMin = 300 * (min / 60);
+  let adjustHr = 300 * (hr / 12);
+  ctx.fillRect(450, 50 + (300 - adjustHeight), 40, adjustHeight);
+  ctx.fillRect(270, 50 + (300 - adjustMin), 40, adjustMin);
+  ctx.fillRect(75, 50 + (300 - adjustHr), 40, adjustHr);
+}
+drawTime();
+setInterval(drawTime, 1000);
+
+function dec() {
+  timeZoneOffset = timeZoneOffset - 1;
+  console.log(timeZoneOffset);
+  os.innerHTML = timeZoneOffset;
+}
+function inc() {
+  timeZoneOffset = timeZoneOffset + 1;
+  console.log(timeZoneOffset);
+  if (hourCurrent+timeZoneOffset >= 13) {
+    
+  }
+  os.innerHTML = timeZoneOffset;
+}
+function reset() {
+  timeZoneOffset = 0;
+  os.innerHTML = timeZoneOffset;
+}
+    </script>
+
+  
+
+</body>
+
+</html>
+ 
